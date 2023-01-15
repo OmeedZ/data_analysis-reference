@@ -6,6 +6,15 @@
 # One-hot encode columns
   df = pd.get_dummies(df, columns= ['col1', 'col2', '...'])
  
+# Correlation Heatmap
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+  corrmat = df.corr()
+  f, ax = plt.subplots(figsize = (7,7))
+  sns.set(font_scale=0.9)
+  sns.heatmap(corrmat, vmax=0.8, square=True, annot=True, fmt='.2f', cmap= "winter")
+  plt.show()
+
 ## Copyable Code for Linear Regression:
   # Simple Linear Regression
   from sklearn.model_selection import train_test_split
@@ -50,3 +59,24 @@
   plt.ylabel('target_columnName')
   plt.legend()
   plt.show()
+
+# Gradient Boosting Regression Example:
+  from sklearn.ensemble import GradientBoostingRegressor
+  params = {'n_estimators': x, 'max_depth': x, 'min_samples_split': x, 'learning_rate': x, 'loss': 'ls'} #enter in values for x
+  gbr_model = GradientBoostingRegressor(**params)
+  gbr_model.fit(X_train, Y_train)
+     
+  # get r2 score with previous code
+     
+    # Hyperparamter tuning with commonly used values
+      from sklearn.model_selection import GridSearchCV
+      num_estimators = [100, 200, 500]
+      learn_rates = [0.01, 0.02, 0.05, 0.1]
+      max_depths = [4, 6, 8]
+      param_grid = {'num_estimators': num_estimators, 'learn_rates': learn_rates, 'max_depths': max_depths}
+      grid_search = GridSearchCV(GradientBoostingRegressor(min_samples_split = 2, loss = 'ls'), param_grid, cv = 3, return_train_score = True)
+      grid_search.fit(X_train, Y_train)
+      grid_search.best_params_
+      # go back to the GBR code and use the best params given
+      
+  
